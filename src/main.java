@@ -27,8 +27,9 @@ public class main extends PApplet {
        background(0);
 
        for(Boid boid : boids){
+           boid.flock(boids);
            boid.update();
-            boid.show();
+           boid.show();
         }
 
     }
