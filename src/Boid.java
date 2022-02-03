@@ -21,24 +21,19 @@ public class Boid {
     }
 
     public void edges(){
-        if (position.x > pa.width){
-            position.x = 0;
-        } else if (position.x < 0){
-            position.x = pa.width;
-        }
-        if (position.y > pa.height){
-            position.y = 0;
-        } else if (position.y < 0){
-            position.y = pa.height;
-        }
+        if (position.x >= pa.width) position.x = 0;
+        if (position.x < 0) position.x = pa.width- 0.0001F;
+        if (position.y >= pa.height) position.y = 0;
+        if (position.y < 0) position.y = pa.height - 0.0001F;
+
     }
 
-    public void flock(ArrayList<Boid> boids){
+    public void flock(ArrayList<Boid> boids, PVector[] flowField, int cols){
         //
         PVector alignment = align(boids);
         PVector cohesion = cohesion(boids);
         PVector separation = separation(boids);
-
+        PVector forceField = followForceField(flowField, cols);
         // reset acceleration to 0;
         this.acceleration.mult(0);
 
@@ -46,6 +41,22 @@ public class Boid {
         acceleration.add(alignment);
         acceleration.add(cohesion);
         acceleration.add(separation);
+        acceleration.add(forceField);
+    }
+
+    private PVector followForceField(PVector[] flowField, int cols){
+
+        //CALCULATE INDEX
+        int x = pa.floor(position.x / SCALE);
+        int y = pa.floor(position.y / SCALE);
+        int index = x + y * cols;
+
+        //GET FORCE AT NEAREST FLOWFIELD VECTOR
+        PVector force = flowField[index];
+
+        //APPLY FORCE
+        acceleration.add(force);
+        return force;
     }
 
     public PVector separation(ArrayList<Boid> boids){

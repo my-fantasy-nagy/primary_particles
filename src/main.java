@@ -42,17 +42,22 @@ public class main extends PApplet {
     public void draw(){
        background(0);
 
+       // UPDATE FORCEFIELD
         ForceField2D.field2D(this, rows, cols, zOff, flowField);
+        //get zOFF
         zOff += Z_RATE;
+        if(frameCount % 60 == 0){
+        }
 
        for(Boid boid : boids){
            boid.edges();
-           boid.flock(boids);
+           boid.flock(boids, flowField, cols);
            boid.update();
            boid.show();
         }
-
     }
+
+
 
 
 }
