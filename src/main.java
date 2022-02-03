@@ -7,14 +7,14 @@ public class main extends PApplet {
     }
 
     public void settings(){
-        size(200, 200);
+        size(640, 360);
     }
 
     public void setup(){
-        println("HELLO WORLD");
+
     }
 
     public void draw(){
-       //
+       background(0);
     }
 }
