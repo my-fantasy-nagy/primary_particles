@@ -120,8 +120,8 @@ public class Boid {
     }
 
     public void show(){
-        pa.strokeWeight(16);
-        pa.stroke(255);
+        pa.strokeWeight(BOID_SIZE);
+        pa.stroke(BOID_COLOR);
         pa.point(position.x, position.y);
     }
 
