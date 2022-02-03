@@ -18,13 +18,16 @@ public class main extends PApplet {
 
     public void setup(){
         frameRate(FRAME_RATE);
-        boids.add(new Boid(this));
+        for(int i =0; i < 100; i ++) {
+            boids.add(new Boid(this));
+        }
     }
 
     public void draw(){
        background(0);
 
        for(Boid boid : boids){
+           boid.update();
             boid.show();
         }
 
