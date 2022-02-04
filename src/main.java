@@ -15,8 +15,10 @@ public class main extends PApplet {
 
     int cols, rows;
     float zOff = 0.0F;
+    float mouseRad = 50.0F;
     ArrayList<Boid> boids = new ArrayList<>();
     PVector flowField[];
+
 
     public void settings(){
         size(WIDE, HIGH);
@@ -27,6 +29,7 @@ public class main extends PApplet {
         //GLOBAL SETTINGS
         pixelDensity(1);
         frameRate(FRAME_RATE);
+        smooth();
 
         // CREATE FORCEFIELD ARRAY
         cols = floor(width/SCALE);
@@ -39,10 +42,10 @@ public class main extends PApplet {
         }
     }
 
-    public void draw(){
-       background(0);
+    public void draw() {
+        background(0);
 
-       // UPDATE FORCEFIELD
+        // UPDATE FORCEFIELD
         ForceField2D.field2D(this, rows, cols, zOff, flowField);
         zOff += Z_RATE;
 
@@ -51,26 +54,51 @@ public class main extends PApplet {
         mouseVector.setMag(MOUSE_MAG);
 
 
-
         // UPDATE BOIDS
-        for(Boid boid : boids){
-           boid.edges();
-           boid.flock(boids);
-           boid.followForceField(flowField, cols);
+        for (Boid boid : boids) {
+            boid.edges();
+            boid.flock(boids);
+            boid.followForceField(flowField, cols);
             // IF MOUSE PRESSED
-            if(mousePressed){
+            if (mousePressed) {
                 boid.followMouse(false);
+                mouseRad -= MOUSE_RATE_GO;
+                if(mouseRad <= MOUSE_RAD_MIN){
+                    mouseRad = MOUSE_RAD_MIN;
+                }
             }
 
-            if(keyPressed == true && key == ' '){
+            if (keyPressed == true && key == ' ') {
                 boid.followMouse(true);
+                mouseRad += MOUSE_RATE_GO;
+                if(mouseRad >= MOUSE_RAD_MAX){
+                    mouseRad = MOUSE_RAD_MAX;
+                }
             }
 
-           boid.update();
-           boid.show();
+            if(! mousePressed && !(keyPressed == true && key == ' ') ) {
+                if (mouseRad < MOUSE_RAD) {
+                    mouseRad += MOUSE_RATE_RETURN;
+                }
 
+                if (mouseRad >= MOUSE_RAD) {
+                    mouseRad -= MOUSE_RATE_RETURN;
+                }
+            }
 
+            boid.update();
+            boid.show();
+
+            drawCursor();
         }
     }
 
+    void drawCursor(){
+        noCursor();
+        stroke(255);
+        strokeWeight(1);
+        noFill();
+
+        ellipse(mouseX, mouseY, mouseRad, mouseRad);
+    }
 }

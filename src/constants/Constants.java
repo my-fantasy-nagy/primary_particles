@@ -8,8 +8,8 @@ public final class Constants {
 
     //GLOBAL PARAMETERS
     public static final int FRAME_RATE = 60;
-    public static final int WIDE = 800;
-    public static final int HIGH = 800;
+    public static final int WIDE = 600;
+    public static final int HIGH = 600;
 
     // BOID PARAMETERS
     public static final int NUM_BOIDS = 250;
@@ -28,9 +28,19 @@ public final class Constants {
 
     //FORCE FIELD PARAMETERS
     public static final float FORCEFIELD_MAG = 0.5F;
-    public static final float MOUSE_MAG = 1.0F;
+
     public static final float NOISE_RATE = 0.1F;
     public static final float Z_RATE = 0.01F;
     public static final float SCALE = 50.0F;
+
+    // MOUSE PARAMETERS
+    public static final float MOUSE_MAG = 1.0F;
+    public static final float MOUSE_RAD = 35.0F;
+    public static final float MOUSE_RAD_MAX = 100.0F;
+    public static final float MOUSE_RAD_MIN = 10.0F;
+    public static final float MOUSE_RATE_GO = 0.08F;
+    public static final float MOUSE_RATE_RETURN = 0.01F;
+
+
 
 }
