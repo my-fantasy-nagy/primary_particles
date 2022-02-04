@@ -19,7 +19,11 @@ public final class Constants {
     public static final float PERCEPTION_RADIUS_ALIGN = 100.0F;
     public static final float PERCEPTION_RADIUS_SEPARATION = 100.0F;
     public static final float MAX_FORCE =  0.2F;
-    public static final float MAX_SPEED = 4.0F;
+    public static final float MAX_SPEED_SEPARATION = 4.0F;
+    public static final float MAX_SPEED_ALIGN = 3.0F;
+    public static final float MAX_SPEED_COHESION = 3.0F;
+    public static final float MAX_SPEED_TOTAL = 6.0F;
+    public static final float MAX_SPEED_MOUSE = 5.0F;
     public static final int TAIL_LENGTH = 20;
 
     //FORCE FIELD PARAMETERS

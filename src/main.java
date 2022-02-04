@@ -44,20 +44,33 @@ public class main extends PApplet {
 
        // UPDATE FORCEFIELD
         ForceField2D.field2D(this, rows, cols, zOff, flowField);
-        //get zOFF
         zOff += Z_RATE;
-        if(frameCount % 60 == 0){
-        }
 
-       for(Boid boid : boids){
+        // CREATE MOUSE VECTOR
+        PVector mouseVector = new PVector(mouseX, mouseY);
+        mouseVector.setMag(MOUSE_MAG);
+
+
+
+        // UPDATE BOIDS
+        for(Boid boid : boids){
            boid.edges();
-           boid.flock(boids, flowField, cols);
+           boid.flock(boids);
+           boid.followForceField(flowField, cols);
+            // IF MOUSE PRESSED
+            if(mousePressed){
+                boid.followMouse(false);
+            }
+
+            if(keyPressed == true && key == ' '){
+                boid.followMouse(true);
+            }
+
            boid.update();
            boid.show();
+
+
         }
     }
-
-
-
 
 }
